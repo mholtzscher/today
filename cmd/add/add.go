@@ -12,7 +12,7 @@ import (
 	"github.com/mholtzscher/today/internal/entry"
 )
 
-func NewCommand(dbPath string) *ufcli.Command {
+func NewCommand(dbPath *string) *ufcli.Command {
 	return &ufcli.Command{
 		Name:  "add",
 		Usage: "Add a new entry",
@@ -27,7 +27,7 @@ func NewCommand(dbPath string) *ufcli.Command {
 				return errors.New("text argument required")
 			}
 
-			database, err := db.Open(dbPath)
+			database, err := db.Open(*dbPath)
 			if err != nil {
 				return err
 			}

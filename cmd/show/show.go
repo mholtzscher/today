@@ -12,7 +12,7 @@ import (
 	"github.com/mholtzscher/today/internal/entry"
 )
 
-func NewCommand(dbPath string) *ufcli.Command {
+func NewCommand(dbPath *string) *ufcli.Command {
 	return &ufcli.Command{
 		Name:  "show",
 		Usage: "Show entries",
@@ -40,7 +40,7 @@ func NewCommand(dbPath string) *ufcli.Command {
 				days = 1
 			}
 
-			database, err := db.Open(dbPath)
+			database, err := db.Open(*dbPath)
 			if err != nil {
 				return err
 			}

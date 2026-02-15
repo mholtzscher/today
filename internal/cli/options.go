@@ -9,6 +9,7 @@ import (
 const (
 	FlagVerbose = "verbose"
 	FlagNoColor = "no-color"
+	FlagDB      = "db"
 )
 
 // GlobalOptions holds CLI flags that are shared across commands.

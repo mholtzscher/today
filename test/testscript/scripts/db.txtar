@@ -1,0 +1,30 @@
+# Test --db flag
+
+# Test 1: --db flag with custom path
+rm -rf $WORK/db1.db
+today --db $WORK/db1.db add 'Test entry with flag'
+exists $WORK/db1.db
+
+# Test 2: TODAY_DB env var
+rm -rf $WORK/db2.db
+env TODAY_DB=$WORK/db2.db
+today add 'Test entry with env var'
+exists $WORK/db2.db
+
+# Test 3: Flag overrides env var
+rm -rf $WORK/db3.db $WORK/db4.db
+env TODAY_DB=$WORK/db3.db
+today --db $WORK/db4.db add 'Flag should win'
+exists $WORK/db4.db
+! exists $WORK/db3.db
+
+# Test 4: Show works with custom DB
+rm -rf $WORK/db5.db
+today --db $WORK/db5.db add 'Show test entry'
+today --db $WORK/db5.db show
+stdout 'Show test entry'
+
+# Test 5: Empty --db falls back to default (~/today.db)
+rm -rf $HOME/today.db
+today --db '' add 'Empty fallback test'
+exists $HOME/today.db
