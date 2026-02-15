@@ -1,0 +1,4 @@
+# Test add command
+today add 'Test entry'
+stdout 'Added entry'
+! stderr .
