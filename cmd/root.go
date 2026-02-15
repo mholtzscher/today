@@ -1,10 +1,7 @@
-// Package cmd implements the CLI commands for today.
 package cmd
 
 import (
 	"context"
-	"os"
-	"path/filepath"
 
 	ufcli "github.com/urfave/cli/v3"
 
@@ -13,28 +10,21 @@ import (
 	"github.com/mholtzscher/today/internal/cli"
 )
 
-// Version is set at build time.
-//
 //nolint:gochecknoglobals // Required for release-please versioning
 var Version = "0.1.3" // x-release-please-version
 
-func defaultDBPath() string {
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return "today.db"
-	}
-	return filepath.Join(home, "today.db")
-}
-
-// Run is the entry point for the CLI.
 func Run(ctx context.Context, args []string) error {
-	dbPath := defaultDBPath()
-
 	app := &ufcli.Command{
 		Name:    "today",
 		Usage:   "Track daily wins and accomplishments",
 		Version: Version,
 		Flags: []ufcli.Flag{
+			&ufcli.StringFlag{
+				Name:    cli.FlagDB,
+				Usage:   "Database path",
+				Value:   cli.DefaultDBPath(),
+				Sources: ufcli.EnvVars("TODAY_DB"),
+			},
 			&ufcli.BoolFlag{
 				Name:  cli.FlagVerbose,
 				Usage: "Print verbose output",
@@ -45,8 +35,8 @@ func Run(ctx context.Context, args []string) error {
 			},
 		},
 		Commands: []*ufcli.Command{
-			add.NewCommand(dbPath),
-			show.NewCommand(dbPath),
+			add.NewCommand(),
+			show.NewCommand(),
 		},
 	}
 

@@ -8,11 +8,12 @@ import (
 
 	ufcli "github.com/urfave/cli/v3"
 
+	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
 	"github.com/mholtzscher/today/internal/entry"
 )
 
-func NewCommand(dbPath string) *ufcli.Command {
+func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
 		Name:  "show",
 		Usage: "Show entries",
@@ -40,7 +41,7 @@ func NewCommand(dbPath string) *ufcli.Command {
 				days = 1
 			}
 
-			database, err := db.Open(dbPath)
+			database, err := db.Open(cli.GetDBPath(cmd))
 			if err != nil {
 				return err
 			}
