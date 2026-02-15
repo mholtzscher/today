@@ -1,0 +1,5 @@
+# Test today help
+today --help
+stdout 'USAGE:'
+stdout 'today'
+! stderr .

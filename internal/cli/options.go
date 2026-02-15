@@ -5,7 +5,7 @@ import (
 	"context"
 )
 
-// Flag names
+// Flag names.
 const (
 	FlagVerbose = "verbose"
 	FlagNoColor = "no-color"
@@ -18,7 +18,7 @@ type GlobalOptions struct {
 }
 
 // GlobalOptionsFromContext extracts global options from the CLI context.
-func GlobalOptionsFromContext(ctx context.Context) GlobalOptions {
+func GlobalOptionsFromContext(_ context.Context) GlobalOptions {
 	// In a real implementation, you'd extract these from the context
 	// For now, return defaults
 	return GlobalOptions{
