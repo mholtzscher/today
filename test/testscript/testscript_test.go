@@ -2,37 +2,33 @@
 package testscript
 
 import (
+	"context"
+	"fmt"
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/rogpeppe/go-internal/testscript"
+
+	"github.com/mholtzscher/today/cmd"
 )
 
 func TestMain(m *testing.M) {
-	os.Exit(m.Run())
+	testscript.Main(m, map[string]func(){
+		"today": func() {
+			if err := cmd.Run(context.Background(), os.Args); err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				os.Exit(1)
+			}
+		},
+	})
 }
 
 func TestScript(t *testing.T) {
-	cwd, _ := os.Getwd()
-	projectRoot := filepath.Clean(filepath.Join(cwd, "..", ".."))
-	homeDir, _ := os.UserHomeDir()
-
 	testscript.Run(t, testscript.Params{
 		Dir: "scripts",
 		Setup: func(env *testscript.Env) error {
-			env.Setenv("PROJECT_ROOT", projectRoot)
-			env.Setenv("GOCACHE", filepath.Join(homeDir, ".cache", "go-build"))
-			env.Setenv("GOMODCACHE", filepath.Join(homeDir, "go", "pkg", "mod"))
 			env.Setenv("HOME", env.Getenv("WORK"))
 			return nil
-		},
-		Cmds: map[string]func(ts *testscript.TestScript, neg bool, args []string){
-			"today": func(ts *testscript.TestScript, _ bool, args []string) {
-				root := ts.Getenv("PROJECT_ROOT")
-				cmdArgs := append([]string{"run", "-C", root, "."}, args...)
-				ts.Exec("go", cmdArgs...)
-			},
 		},
 	})
 }
