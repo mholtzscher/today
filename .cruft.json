@@ -1,0 +1,38 @@
+{
+  "template": "https://github.com/mholtzscher/templates.git",
+  "commit": "{{ cookiecutter._commit | default('unknown') }}",
+  "context": {
+    "cookiecutter": {
+      "project_name": "today",
+      "project_slug": "today",
+      "project_description": "A Go CLI tool built with Nix",
+      "github_owner": "mholtzscher",
+      "github_repo": "today",
+      "module_path": "github.com/mholtzscher/today",
+      "author_name": "Michael Holtzscher",
+      "author_email": "michael@holtzscher.com",
+      "license": "MIT",
+      "use_cgo": "no",
+      "use_homebrew": "yes",
+      "use_sqlc": "yes",
+      "go_version": "1.25"
+    }
+  },
+  "directory": "go-nix-cli",
+  "skip": [
+    ".github/.release-please-manifest.json",
+    "CHANGELOG.md",
+    "README.md",
+    ".goreleaser.yaml",
+    "cmd",
+    "internal",
+    "db",
+    "test",
+    "sqlc.yaml",
+    "main.go",
+    "go.mod",
+    "go.sum",
+    "gomod2nix.toml",
+    "flake.lock"
+  ]
+}
