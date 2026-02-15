@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/mholtzscher/templates.git",
-  "commit": "{{ cookiecutter._commit | default('unknown') }}",
+  "commit": "HEAD",
   "context": {
     "cookiecutter": {
       "project_name": "today",
