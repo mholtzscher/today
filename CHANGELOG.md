@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4](https://github.com/mholtzscher/today/compare/v0.1.3...v0.1.4) (2026-02-15)
+
+
+### Features
+
+* add configurable database path via --db flag and TODAY_DB env var ([#5](https://github.com/mholtzscher/today/issues/5)) ([81bc2f1](https://github.com/mholtzscher/today/commit/81bc2f16b9736d9831ad981bb479aa8d8be855af))
+
 ## [0.1.3](https://github.com/mholtzscher/today/compare/v0.1.2...v0.1.3) (2026-02-15)
 
 
