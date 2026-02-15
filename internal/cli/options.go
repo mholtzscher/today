@@ -1,29 +1,41 @@
-// Package cli provides shared CLI options and utilities.
 package cli
 
 import (
 	"context"
+	"os"
+	"path/filepath"
 )
 
-// Flag names.
 const (
 	FlagVerbose = "verbose"
 	FlagNoColor = "no-color"
 	FlagDB      = "db"
 )
 
-// GlobalOptions holds CLI flags that are shared across commands.
 type GlobalOptions struct {
 	Verbose bool
 	NoColor bool
 }
 
-// GlobalOptionsFromContext extracts global options from the CLI context.
 func GlobalOptionsFromContext(_ context.Context) GlobalOptions {
-	// In a real implementation, you'd extract these from the context
-	// For now, return defaults
 	return GlobalOptions{
 		Verbose: false,
 		NoColor: false,
 	}
+}
+
+func DefaultDBPath() string {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "today.db"
+	}
+	return filepath.Join(home, "today.db")
+}
+
+func GetDBPath(cmd interface{ String(name string) string }) string {
+	path := cmd.String(FlagDB)
+	if path == "" {
+		return DefaultDBPath()
+	}
+	return path
 }
