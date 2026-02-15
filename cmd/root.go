@@ -16,7 +16,7 @@ import (
 // Version is set at build time.
 //
 //nolint:gochecknoglobals // Required for release-please versioning
-var Version = "0.1.1" // x-release-please-version
+var Version = "0.1.2" // x-release-please-version
 
 func defaultDBPath() string {
 	home, err := os.UserHomeDir()
