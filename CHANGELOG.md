@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3](https://github.com/mholtzscher/today/compare/v0.1.2...v0.1.3) (2026-02-15)
+
+
+### Miscellaneous Chores
+
+* release 0.1.3 ([eba32c0](https://github.com/mholtzscher/today/commit/eba32c0f5567e556e95a38b3ab07b6048bd136ae))
+
 ## [0.1.2](https://github.com/mholtzscher/today/compare/v0.1.1...v0.1.2) (2026-02-15)
 
 
