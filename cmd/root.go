@@ -11,7 +11,7 @@ import (
 )
 
 //nolint:gochecknoglobals // Required for release-please versioning
-var Version = "0.1.4" // x-release-please-version
+var Version = "0.1.5" // x-release-please-version
 
 func Run(ctx context.Context, args []string) error {
 	app := &ufcli.Command{
