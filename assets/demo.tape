@@ -1,19 +1,29 @@
-Output demo.gif
+Output assets/demo.gif
 
+Set Theme "Catppuccin Mocha"
 Set FontSize 24
 Set Width 1200
 Set Height 600
 Set Padding 20
 
-Type "./today add 'Fixed critical bug in production'"
+Hide
+Type "export PS1='> '"
+Enter
+Type "alias today=./today"
+Enter
+Type "clear"
+Enter
+Show
+
+Type "today add 'Fixed critical bug in production'"
 Enter
 Sleep 500ms
-Type "./today add 'Helped a colleague with Go generics'"
+Type "today add 'Helped a colleague with Go generics'"
 Enter
 Sleep 500ms
-Type "./today add 'Refactored the auth module'"
+Type "today add 'Refactored the auth module'"
 Enter
 Sleep 500ms
-Type "./today show"
+Type "today show"
 Enter
 Sleep 5s
