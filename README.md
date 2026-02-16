@@ -1,6 +1,10 @@
 # today
 
-A Go CLI tool built with Nix
+A simple, command-line journal for tracking your daily wins and accomplishments.
+
+![Demo](assets/demo.gif)
+
+`today` helps you keep a record of what you've achieved, making it easier to write standup updates, performance reviews, or just reflect on your progress.
 
 ## Installation
 
@@ -28,14 +32,17 @@ nix build
 ## Usage
 
 ```bash
+# Add an entry
+today add "Fixed the login bug"
+
+# Show today's entries
+today show
+
+# Show entries for the last 3 days
+today show 3
+
 # Show help
 today --help
-
-# Run example command
-today example
-
-# Run with verbose output
-today --verbose example
 ```
 
 ## Development
