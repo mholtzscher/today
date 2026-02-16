@@ -15,8 +15,9 @@ import (
 
 func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
-		Name:  "show",
-		Usage: "Show entries",
+		Name:    "show",
+		Usage:   "Show entries",
+		Aliases: []string{"s"},
 		Flags: []ufcli.Flag{
 			&ufcli.IntFlag{
 				Name:  "days",

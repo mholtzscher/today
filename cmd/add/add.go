@@ -15,8 +15,9 @@ import (
 
 func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
-		Name:  "add",
-		Usage: "Add a new entry",
+		Name:    "add",
+		Usage:   "Add a new entry",
+		Aliases: []string{"i", "a"},
 		Arguments: []ufcli.Argument{
 			&ufcli.StringArg{
 				Name: "text",
