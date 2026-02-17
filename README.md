@@ -41,13 +41,13 @@ today show
 # Show entries for the last 3 days
 today show 3
 
-# Delete an entry by id
-today delete 12 --yes
+# Archive an entry by id
+today archive 12 --yes
 
-# Show including deleted entries
+# Show including archived entries
 today show --all
 
-# Restore a deleted entry
+# Restore an archived entry
 today restore 12
 
 # Show help

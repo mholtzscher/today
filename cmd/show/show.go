@@ -25,7 +25,7 @@ func NewCommand() *ufcli.Command {
 			},
 			&ufcli.BoolFlag{
 				Name:  "all",
-				Usage: "Include deleted entries",
+				Usage: "Include archived entries",
 			},
 		},
 		Arguments: []ufcli.Argument{
@@ -81,8 +81,8 @@ func printEntries(entries []entry.Entry) {
 		}
 
 		line := fmt.Sprintf("• #%d %s", e.ID, e.Text)
-		if e.DeletedAt != nil {
-			line = fmt.Sprintf("• #%d [deleted] %s", e.ID, e.Text)
+		if e.ArchivedAt != nil {
+			line = fmt.Sprintf("• #%d [archived] %s", e.ID, e.Text)
 		}
 		output.Stdoutln(line)
 	}

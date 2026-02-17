@@ -7,5 +7,5 @@ CREATE TABLE entries (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   text TEXT NOT NULL,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
-  deleted_at TEXT
+  archived_at TEXT
 );

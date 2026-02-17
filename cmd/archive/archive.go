@@ -1,4 +1,4 @@
-package deletecmd
+package archive
 
 import (
 	"context"
@@ -15,8 +15,8 @@ import (
 
 func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
-		Name:  "delete",
-		Usage: "Soft delete an entry by id",
+		Name:  "archive",
+		Usage: "Archive an entry by id",
 		Flags: []ufcli.Flag{
 			&ufcli.BoolFlag{
 				Name:  "yes",
@@ -48,41 +48,41 @@ func run(cmd *ufcli.Command) error {
 	target, err := store.GetByID(int64(id))
 	if err != nil {
 		if errors.Is(err, entry.ErrEntryNotFound) {
-			output.Stdoutln("No entry deleted")
+			output.Stdoutln("No entry archived")
 			return nil
 		}
 		return err
 	}
 
-	if target.DeletedAt != nil {
-		output.Stdoutln("No entry deleted")
+	if target.ArchivedAt != nil {
+		output.Stdoutln("No entry archived")
 		return nil
 	}
 
-	shouldDelete, err := confirmDelete(cmd.Bool("yes"), target)
+	shouldArchive, err := confirmArchive(cmd.Bool("yes"), target)
 	if err != nil {
 		return err
 	}
-	if !shouldDelete {
-		output.Stdoutln("No entry deleted")
+	if !shouldArchive {
+		output.Stdoutln("No entry archived")
 		return nil
 	}
 
-	deleted, err := store.SoftDeleteByID(int64(id))
+	archived, err := store.ArchiveByID(int64(id))
 	if err != nil {
 		return err
 	}
 
-	if !deleted {
-		output.Stdoutln("No entry deleted")
+	if !archived {
+		output.Stdoutln("No entry archived")
 		return nil
 	}
 
-	output.Stdoutln(fmt.Sprintf("Deleted #%d", id))
+	output.Stdoutln(fmt.Sprintf("Archived #%d", id))
 	return nil
 }
 
-func confirmDelete(skipPrompt bool, target *entry.Entry) (bool, error) {
+func confirmArchive(skipPrompt bool, target *entry.Entry) (bool, error) {
 	if skipPrompt {
 		return true, nil
 	}
@@ -91,7 +91,7 @@ func confirmDelete(skipPrompt bool, target *entry.Entry) (bool, error) {
 	}
 
 	prompt := fmt.Sprintf(
-		"Delete #%d (%s): %q?",
+		"Archive #%d (%s): %q?",
 		target.ID,
 		target.CreatedAt.Format("2006-01-02"),
 		target.Text,

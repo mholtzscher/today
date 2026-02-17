@@ -11,10 +11,10 @@ import (
 var ErrEntryNotFound = errors.New("entry not found")
 
 type Entry struct {
-	ID        int64
-	Text      string
-	CreatedAt time.Time
-	DeletedAt *time.Time
+	ID         int64
+	Text       string
+	CreatedAt  time.Time
+	ArchivedAt *time.Time
 }
 
 type Store struct {
@@ -37,14 +37,14 @@ func (s *Store) Insert(text string) error {
 	return nil
 }
 
-func (s *Store) GetByDays(days int, includeDeleted bool) ([]Entry, error) {
+func (s *Store) GetByDays(days int, includeArchived bool) ([]Entry, error) {
 	query := `
-		SELECT id, text, created_at, deleted_at
+		SELECT id, text, created_at, archived_at
 		FROM entries
 		WHERE date(created_at) >= date('now', '-' || ? || ' days')
 	`
-	if !includeDeleted {
-		query += "\n\t\tAND deleted_at IS NULL"
+	if !includeArchived {
+		query += "\n\t\tAND archived_at IS NULL"
 	}
 	query += "\n\t\tORDER BY created_at DESC"
 
@@ -58,20 +58,20 @@ func (s *Store) GetByDays(days int, includeDeleted bool) ([]Entry, error) {
 	for rows.Next() {
 		var e Entry
 		var createdAtStr string
-		var deletedAt sql.NullString
-		if scanErr := rows.Scan(&e.ID, &e.Text, &createdAtStr, &deletedAt); scanErr != nil {
+		var archivedAt sql.NullString
+		if scanErr := rows.Scan(&e.ID, &e.Text, &createdAtStr, &archivedAt); scanErr != nil {
 			return nil, fmt.Errorf("scan entry: %w", scanErr)
 		}
 		e.CreatedAt, err = time.Parse("2006-01-02 15:04:05", createdAtStr)
 		if err != nil {
 			return nil, fmt.Errorf("parse created_at: %w", err)
 		}
-		if deletedAt.Valid {
-			parsedDeletedAt, parseErr := time.Parse("2006-01-02 15:04:05", deletedAt.String)
+		if archivedAt.Valid {
+			parsedArchivedAt, parseErr := time.Parse("2006-01-02 15:04:05", archivedAt.String)
 			if parseErr != nil {
-				return nil, fmt.Errorf("parse deleted_at: %w", parseErr)
+				return nil, fmt.Errorf("parse archived_at: %w", parseErr)
 			}
-			e.DeletedAt = &parsedDeletedAt
+			e.ArchivedAt = &parsedArchivedAt
 		}
 		entries = append(entries, e)
 	}
@@ -83,7 +83,7 @@ func (s *Store) GetByDays(days int, includeDeleted bool) ([]Entry, error) {
 
 func (s *Store) GetByID(id int64) (*Entry, error) {
 	query := `
-		SELECT id, text, created_at, deleted_at
+		SELECT id, text, created_at, archived_at
 		FROM entries
 		WHERE id = ?
 		LIMIT 1
@@ -92,8 +92,8 @@ func (s *Store) GetByID(id int64) (*Entry, error) {
 
 	var e Entry
 	var createdAtStr string
-	var deletedAt sql.NullString
-	if err := row.Scan(&e.ID, &e.Text, &createdAtStr, &deletedAt); err != nil {
+	var archivedAt sql.NullString
+	if err := row.Scan(&e.ID, &e.Text, &createdAtStr, &archivedAt); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, ErrEntryNotFound
 		}
@@ -106,30 +106,30 @@ func (s *Store) GetByID(id int64) (*Entry, error) {
 	}
 	e.CreatedAt = createdAt
 
-	if deletedAt.Valid {
-		parsedDeletedAt, parseErr := time.Parse("2006-01-02 15:04:05", deletedAt.String)
+	if archivedAt.Valid {
+		parsedArchivedAt, parseErr := time.Parse("2006-01-02 15:04:05", archivedAt.String)
 		if parseErr != nil {
-			return nil, fmt.Errorf("parse deleted_at: %w", parseErr)
+			return nil, fmt.Errorf("parse archived_at: %w", parseErr)
 		}
-		e.DeletedAt = &parsedDeletedAt
+		e.ArchivedAt = &parsedArchivedAt
 	}
 
 	return &e, nil
 }
 
-func (s *Store) SoftDeleteByID(id int64) (bool, error) {
+func (s *Store) ArchiveByID(id int64) (bool, error) {
 	result, err := s.db.ExecContext(
 		context.Background(),
-		"UPDATE entries SET deleted_at = datetime('now') WHERE id = ? AND deleted_at IS NULL",
+		"UPDATE entries SET archived_at = datetime('now') WHERE id = ? AND archived_at IS NULL",
 		id,
 	)
 	if err != nil {
-		return false, fmt.Errorf("soft delete entry: %w", err)
+		return false, fmt.Errorf("archive entry: %w", err)
 	}
 
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
-		return false, fmt.Errorf("soft delete rows affected: %w", err)
+		return false, fmt.Errorf("archive rows affected: %w", err)
 	}
 
 	return rowsAffected == 1, nil
@@ -138,7 +138,7 @@ func (s *Store) SoftDeleteByID(id int64) (bool, error) {
 func (s *Store) RestoreByID(id int64) (bool, error) {
 	result, err := s.db.ExecContext(
 		context.Background(),
-		"UPDATE entries SET deleted_at = NULL WHERE id = ? AND deleted_at IS NOT NULL",
+		"UPDATE entries SET archived_at = NULL WHERE id = ? AND archived_at IS NOT NULL",
 		id,
 	)
 	if err != nil {

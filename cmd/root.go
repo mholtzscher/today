@@ -6,7 +6,7 @@ import (
 	ufcli "github.com/urfave/cli/v3"
 
 	"github.com/mholtzscher/today/cmd/add"
-	deletecmd "github.com/mholtzscher/today/cmd/delete"
+	"github.com/mholtzscher/today/cmd/archive"
 	"github.com/mholtzscher/today/cmd/restore"
 	"github.com/mholtzscher/today/cmd/show"
 	"github.com/mholtzscher/today/internal/cli"
@@ -43,7 +43,7 @@ func Run(ctx context.Context, args []string) error {
 		},
 		Commands: []*ufcli.Command{
 			add.NewCommand(),
-			deletecmd.NewCommand(),
+			archive.NewCommand(),
 			restore.NewCommand(),
 			show.NewCommand(),
 		},

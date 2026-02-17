@@ -16,7 +16,7 @@ import (
 func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
 		Name:  "restore",
-		Usage: "Restore a soft-deleted entry by id",
+		Usage: "Restore an archived entry by id",
 		Arguments: []ufcli.Argument{
 			&ufcli.IntArg{Name: "id"},
 		},
