@@ -6,5 +6,6 @@ CREATE TABLE users (
 CREATE TABLE entries (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   text TEXT NOT NULL,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  deleted_at TEXT
 );

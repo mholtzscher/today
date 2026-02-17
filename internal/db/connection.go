@@ -11,6 +11,7 @@ import (
 	_ "modernc.org/sqlite" // sqlite driver for database/sql
 
 	"github.com/mholtzscher/today/internal/db/migrations"
+	"github.com/mholtzscher/today/internal/output"
 )
 
 type silentLogger struct{}
@@ -18,7 +19,7 @@ type silentLogger struct{}
 func (l *silentLogger) Printf(_ string, _ ...any) {}
 
 func (l *silentLogger) Fatalf(format string, v ...any) {
-	_, _ = fmt.Fprintf(os.Stderr, format, v...)
+	output.Stderrln(fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 

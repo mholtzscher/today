@@ -3,14 +3,13 @@ package show
 import (
 	"context"
 	"fmt"
-	"io"
-	"os"
 
 	ufcli "github.com/urfave/cli/v3"
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
 	"github.com/mholtzscher/today/internal/entry"
+	"github.com/mholtzscher/today/internal/output"
 )
 
 func NewCommand() *ufcli.Command {
@@ -23,6 +22,10 @@ func NewCommand() *ufcli.Command {
 				Name:  "days",
 				Value: 0,
 				Usage: "Number of days to show (0 = today only)",
+			},
+			&ufcli.BoolFlag{
+				Name:  "all",
+				Usage: "Include deleted entries",
 			},
 		},
 		Arguments: []ufcli.Argument{
@@ -49,20 +52,20 @@ func NewCommand() *ufcli.Command {
 			defer database.Close()
 
 			store := entry.NewStore(database)
-			entries, err := store.GetByDays(days)
+			entries, err := store.GetByDays(days, cmd.Bool("all"))
 			if err != nil {
 				return err
 			}
 
-			printEntries(os.Stdout, entries)
+			printEntries(entries)
 			return nil
 		},
 	}
 }
 
-func printEntries(w io.Writer, entries []entry.Entry) {
+func printEntries(entries []entry.Entry) {
 	if len(entries) == 0 {
-		fmt.Fprintln(w, "No entries found")
+		output.Stdoutln("No entries found")
 		return
 	}
 
@@ -70,9 +73,17 @@ func printEntries(w io.Writer, entries []entry.Entry) {
 	for _, e := range entries {
 		date := e.CreatedAt.Format("2006-01-02")
 		if date != currentDate {
+			if currentDate != "" {
+				output.Stdoutln("")
+			}
 			currentDate = date
-			fmt.Fprintf(w, "\n=== %s ===\n", date)
+			output.Stdoutln(fmt.Sprintf("=== %s ===", date))
 		}
-		fmt.Fprintf(w, "• %s\n", e.Text)
+
+		line := fmt.Sprintf("• #%d %s", e.ID, e.Text)
+		if e.DeletedAt != nil {
+			line = fmt.Sprintf("• #%d [deleted] %s", e.ID, e.Text)
+		}
+		output.Stdoutln(line)
 	}
 }

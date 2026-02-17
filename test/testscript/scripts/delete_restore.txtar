@@ -1,0 +1,35 @@
+# Test delete/restore commands
+today add 'First entry'
+stdout 'Added entry'
+today add 'Second entry'
+stdout 'Added entry'
+
+today show
+stdout '#1 First entry'
+stdout '#2 Second entry'
+
+today delete 1 --yes
+stdout 'Deleted #1'
+
+today show
+! stdout '#1 First entry'
+stdout '#2 Second entry'
+
+today show --all
+stdout '#1 \[deleted\] First entry'
+stdout '#2 Second entry'
+
+today restore 1
+stdout 'Restored #1'
+
+today show
+stdout '#1 First entry'
+
+today delete 999 --yes
+stdout 'No entry deleted'
+
+today restore 999
+stdout 'No entry restored'
+
+! today delete 2
+stderr 'refusing to prompt on non-tty; pass --yes'

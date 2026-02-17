@@ -1,8 +1,9 @@
-package add
+package restore
 
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	ufcli "github.com/urfave/cli/v3"
 
@@ -14,18 +15,15 @@ import (
 
 func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
-		Name:    "add",
-		Usage:   "Add a new entry",
-		Aliases: []string{"i", "a"},
+		Name:  "restore",
+		Usage: "Restore a soft-deleted entry by id",
 		Arguments: []ufcli.Argument{
-			&ufcli.StringArg{
-				Name: "text",
-			},
+			&ufcli.IntArg{Name: "id"},
 		},
 		Action: func(_ context.Context, cmd *ufcli.Command) error {
-			text := cmd.StringArg("text")
-			if text == "" {
-				return errors.New("text argument required")
+			id := cmd.IntArg("id")
+			if id <= 0 {
+				return errors.New("id argument required")
 			}
 
 			database, err := db.Open(cli.GetDBPath(cmd))
@@ -35,11 +33,17 @@ func NewCommand() *ufcli.Command {
 			defer database.Close()
 
 			store := entry.NewStore(database)
-			if insertErr := store.Insert(text); insertErr != nil {
-				return insertErr
+			restored, err := store.RestoreByID(int64(id))
+			if err != nil {
+				return err
 			}
 
-			output.Stdoutln("Added entry")
+			if !restored {
+				output.Stdoutln("No entry restored")
+				return nil
+			}
+
+			output.Stdoutln(fmt.Sprintf("Restored #%d", id))
 			return nil
 		},
 	}

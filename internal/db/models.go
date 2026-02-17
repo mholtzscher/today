@@ -4,10 +4,15 @@
 
 package db
 
+import (
+	"database/sql"
+)
+
 type Entry struct {
-	ID        int64  `json:"id"`
-	Text      string `json:"text"`
-	CreatedAt string `json:"created_at"`
+	ID        int64          `json:"id"`
+	Text      string         `json:"text"`
+	CreatedAt string         `json:"created_at"`
+	DeletedAt sql.NullString `json:"deleted_at"`
 }
 
 type User struct {

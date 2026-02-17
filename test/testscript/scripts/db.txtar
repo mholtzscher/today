@@ -22,7 +22,7 @@ exists $WORK/db4.db
 rm -rf $WORK/db5.db
 today --db $WORK/db5.db add 'Show test entry'
 today --db $WORK/db5.db show
-stdout 'Show test entry'
+stdout '#1 Show test entry'
 
 # Test 5: Empty --db falls back to default (~/today.db)
 rm -rf $HOME/today.db
