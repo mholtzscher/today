@@ -94,7 +94,7 @@ func (s *Store) GetByID(id int64) (*Entry, error) {
 	var createdAtStr string
 	var archivedAt sql.NullString
 	if err := row.Scan(&e.ID, &e.Text, &createdAtStr, &archivedAt); err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, sql.ErrNoRows) {
 			return nil, ErrEntryNotFound
 		}
 		return nil, fmt.Errorf("query entry by id: %w", err)
