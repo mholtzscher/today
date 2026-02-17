@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/mholtzscher/templates.git",
-  "commit": "8357e05c7a2a8e94fe1dcda9729a28efef9a675b",
+  "commit": "870aac0594fca55002ede6c40e434ba7219f40e9",
   "context": {
     "cookiecutter": {
       "project_name": "today",
@@ -15,7 +15,13 @@
       "use_cgo": "no",
       "use_homebrew": "yes",
       "use_sqlc": "yes",
-      "go_version": "1.25"
+      "go_version": "1.25",
+      "_template": "https://github.com/mholtzscher/templates.git",
+      "_commit": "870aac0594fca55002ede6c40e434ba7219f40e9",
+      "_copy_without_render": [
+        "test/testscript/scripts/*.txtar",
+        "db/*.sql"
+      ]
     }
   },
   "directory": "go-nix-cli",
@@ -34,5 +40,6 @@
     "go.sum",
     "gomod2nix.toml",
     "flake.lock"
-  ]
+  ],
+  "checkout": null
 }
