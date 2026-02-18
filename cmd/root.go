@@ -6,8 +6,11 @@ import (
 	ufcli "github.com/urfave/cli/v3"
 
 	"github.com/mholtzscher/today/cmd/add"
+	"github.com/mholtzscher/today/cmd/archive"
+	"github.com/mholtzscher/today/cmd/restore"
 	"github.com/mholtzscher/today/cmd/show"
 	"github.com/mholtzscher/today/internal/cli"
+	"github.com/mholtzscher/today/internal/output"
 )
 
 //nolint:gochecknoglobals // Required for release-please versioning
@@ -18,6 +21,10 @@ func Run(ctx context.Context, args []string) error {
 		Name:    "today",
 		Usage:   "Track daily wins and accomplishments",
 		Version: Version,
+		Before: func(ctx context.Context, cmd *ufcli.Command) (context.Context, error) {
+			output.Configure(cmd.Bool(cli.FlagNoColor))
+			return ctx, nil
+		},
 		Flags: []ufcli.Flag{
 			&ufcli.StringFlag{
 				Name:    cli.FlagDB,
@@ -36,6 +43,8 @@ func Run(ctx context.Context, args []string) error {
 		},
 		Commands: []*ufcli.Command{
 			add.NewCommand(),
+			archive.NewCommand(),
+			restore.NewCommand(),
 			show.NewCommand(),
 		},
 	}

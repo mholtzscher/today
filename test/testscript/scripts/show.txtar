@@ -3,5 +3,5 @@ today add 'Test entry for show'
 stdout 'Added entry'
 ! stderr .
 today show
-stdout 'Test entry for show'
+stdout '#1 Test entry for show'
 ! stderr .

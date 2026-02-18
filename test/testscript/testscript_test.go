@@ -3,20 +3,20 @@ package testscript
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"testing"
 
 	"github.com/rogpeppe/go-internal/testscript"
 
 	"github.com/mholtzscher/today/cmd"
+	"github.com/mholtzscher/today/internal/output"
 )
 
 func TestMain(m *testing.M) {
 	testscript.Main(m, map[string]func(){
 		"today": func() {
 			if err := cmd.Run(context.Background(), os.Args); err != nil {
-				fmt.Fprintln(os.Stderr, err)
+				output.Stderrln(err.Error())
 				os.Exit(1)
 			}
 		},

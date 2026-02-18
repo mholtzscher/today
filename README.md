@@ -41,6 +41,15 @@ today show
 # Show entries for the last 3 days
 today show 3
 
+# Archive an entry by id
+today archive 12 --yes
+
+# Show including archived entries
+today show --all
+
+# Restore an archived entry
+today restore 12
+
 # Show help
 today --help
 ```
