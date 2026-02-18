@@ -102,35 +102,16 @@ func convertEntries(rows []sqlc.Entry) ([]Entry, error) {
 
 // convertEntry converts a single sqlc entry to a domain entry.
 func convertEntry(row sqlc.Entry) (*Entry, error) {
-	createdAt, err := parseTime(row.CreatedAt)
-	if err != nil {
-		return nil, fmt.Errorf("parse created_at: %w", err)
-	}
-
 	e := &Entry{
 		ID:        row.ID,
 		Text:      row.Text,
-		CreatedAt: createdAt,
+		CreatedAt: time.Unix(row.CreatedAt, 0),
 	}
 
-	if row.ArchivedAt != nil {
-		archivedAtStr, ok := row.ArchivedAt.(string)
-		if ok && archivedAtStr != "" {
-			parsedTime, parseErr := time.Parse("2006-01-02 15:04:05", archivedAtStr)
-			if parseErr != nil {
-				return nil, fmt.Errorf("parse archived_at: %w", parseErr)
-			}
-			e.ArchivedAt = &parsedTime
-		}
+	if row.ArchivedAt.Valid {
+		archivedAt := time.Unix(row.ArchivedAt.Int64, 0)
+		e.ArchivedAt = &archivedAt
 	}
 
 	return e, nil
-}
-
-// parseTime parses a SQL timestamp string.
-func parseTime(ns sql.NullString) (time.Time, error) {
-	if !ns.Valid || ns.String == "" {
-		return time.Time{}, errors.New("invalid timestamp")
-	}
-	return time.Parse("2006-01-02 15:04:05", ns.String)
 }

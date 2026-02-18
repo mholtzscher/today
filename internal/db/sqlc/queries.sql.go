@@ -11,7 +11,7 @@ import (
 
 const archiveEntry = `-- name: ArchiveEntry :execrows
 UPDATE entries
-SET archived_at = datetime('now')
+SET archived_at = strftime('%s', 'now')
 WHERE id = ? AND archived_at IS NULL
 `
 
@@ -55,7 +55,7 @@ func (q *Queries) GetEntry(ctx context.Context, id int64) (Entry, error) {
 const listEntriesSince = `-- name: ListEntriesSince :many
 SELECT id, text, created_at, archived_at
 FROM entries
-WHERE date(created_at) >= date('now', CAST(? AS TEXT))
+WHERE datetime(created_at, 'unixepoch') >= datetime('now', CAST(? AS TEXT))
 AND archived_at IS NULL
 ORDER BY created_at DESC
 `
@@ -91,7 +91,7 @@ func (q *Queries) ListEntriesSince(ctx context.Context, dollar_1 string) ([]Entr
 const listEntriesSinceAll = `-- name: ListEntriesSinceAll :many
 SELECT id, text, created_at, archived_at
 FROM entries
-WHERE date(created_at) >= date('now', CAST(? AS TEXT))
+WHERE datetime(created_at, 'unixepoch') >= datetime('now', CAST(? AS TEXT))
 ORDER BY created_at DESC
 `
 

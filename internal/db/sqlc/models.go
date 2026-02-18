@@ -9,8 +9,8 @@ import (
 )
 
 type Entry struct {
-	ID         int64          `json:"id"`
-	Text       string         `json:"text"`
-	CreatedAt  sql.NullString `json:"created_at"`
-	ArchivedAt interface{}    `json:"archived_at"`
+	ID         int64         `json:"id"`
+	Text       string        `json:"text"`
+	CreatedAt  int64         `json:"created_at"`
+	ArchivedAt sql.NullInt64 `json:"archived_at"`
 }
