@@ -8,7 +8,6 @@ import (
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
-	"github.com/mholtzscher/today/internal/entry"
 	"github.com/mholtzscher/today/internal/output"
 )
 
@@ -35,8 +34,7 @@ func NewCommand() *ufcli.Command {
 			defer database.Close()
 
 			store := db.NewStore(database)
-			svc := entry.NewService(store)
-			if insertErr := svc.CreateEntry(ctx, text); insertErr != nil {
+			if insertErr := store.CreateEntry(ctx, text); insertErr != nil {
 				return insertErr
 			}
 

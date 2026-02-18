@@ -9,7 +9,6 @@ import (
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
-	"github.com/mholtzscher/today/internal/entry"
 	"github.com/mholtzscher/today/internal/output"
 )
 
@@ -43,9 +42,8 @@ func run(ctx context.Context, cmd *ufcli.Command) error {
 	defer database.Close()
 
 	store := db.NewStore(database)
-	svc := entry.NewService(store)
 
-	target, err := svc.GetEntry(ctx, int64(id))
+	target, err := store.GetEntry(ctx, int64(id))
 	if err != nil {
 		if errors.Is(err, db.ErrEntryNotFound) {
 			output.Stdoutln("No entry archived")
@@ -68,7 +66,7 @@ func run(ctx context.Context, cmd *ufcli.Command) error {
 		return nil
 	}
 
-	archived, err := svc.ArchiveEntry(ctx, int64(id))
+	archived, err := store.ArchiveEntry(ctx, int64(id))
 	if err != nil {
 		return err
 	}
