@@ -9,7 +9,6 @@ import (
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
-	"github.com/mholtzscher/today/internal/entry"
 	"github.com/mholtzscher/today/internal/output"
 )
 
@@ -20,7 +19,7 @@ func NewCommand() *ufcli.Command {
 		Arguments: []ufcli.Argument{
 			&ufcli.IntArg{Name: "id"},
 		},
-		Action: func(_ context.Context, cmd *ufcli.Command) error {
+		Action: func(ctx context.Context, cmd *ufcli.Command) error {
 			id := cmd.IntArg("id")
 			if id <= 0 {
 				return errors.New("id argument required")
@@ -32,8 +31,23 @@ func NewCommand() *ufcli.Command {
 			}
 			defer database.Close()
 
-			store := entry.NewStore(database)
-			restored, err := store.RestoreByID(int64(id))
+			store := db.NewStore(database)
+
+			entry, err := store.GetEntry(ctx, int64(id))
+			if err != nil {
+				if errors.Is(err, db.ErrEntryNotFound) {
+					output.Stdoutln("No entry restored")
+					return nil
+				}
+				return err
+			}
+
+			if entry.ArchivedAt == nil {
+				output.Stdoutln("No entry restored")
+				return nil
+			}
+
+			restored, err := store.RestoreEntry(ctx, int64(id))
 			if err != nil {
 				return err
 			}

@@ -9,7 +9,6 @@ import (
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
-	"github.com/mholtzscher/today/internal/entry"
 	"github.com/mholtzscher/today/internal/output"
 )
 
@@ -26,13 +25,11 @@ func NewCommand() *ufcli.Command {
 		Arguments: []ufcli.Argument{
 			&ufcli.IntArg{Name: "id"},
 		},
-		Action: func(_ context.Context, cmd *ufcli.Command) error {
-			return run(cmd)
-		},
+		Action: run,
 	}
 }
 
-func run(cmd *ufcli.Command) error {
+func run(ctx context.Context, cmd *ufcli.Command) error {
 	id := cmd.IntArg("id")
 	if id <= 0 {
 		return errors.New("id argument required")
@@ -44,10 +41,11 @@ func run(cmd *ufcli.Command) error {
 	}
 	defer database.Close()
 
-	store := entry.NewStore(database)
-	target, err := store.GetByID(int64(id))
+	store := db.NewStore(database)
+
+	target, err := store.GetEntry(ctx, int64(id))
 	if err != nil {
-		if errors.Is(err, entry.ErrEntryNotFound) {
+		if errors.Is(err, db.ErrEntryNotFound) {
 			output.Stdoutln("No entry archived")
 			return nil
 		}
@@ -68,7 +66,7 @@ func run(cmd *ufcli.Command) error {
 		return nil
 	}
 
-	archived, err := store.ArchiveByID(int64(id))
+	archived, err := store.ArchiveEntry(ctx, int64(id))
 	if err != nil {
 		return err
 	}
@@ -82,7 +80,7 @@ func run(cmd *ufcli.Command) error {
 	return nil
 }
 
-func confirmArchive(skipPrompt bool, target *entry.Entry) (bool, error) {
+func confirmArchive(skipPrompt bool, target *db.Entry) (bool, error) {
 	if skipPrompt {
 		return true, nil
 	}

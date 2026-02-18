@@ -8,7 +8,6 @@ import (
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
-	"github.com/mholtzscher/today/internal/entry"
 	"github.com/mholtzscher/today/internal/output"
 )
 
@@ -22,7 +21,7 @@ func NewCommand() *ufcli.Command {
 				Name: "text",
 			},
 		},
-		Action: func(_ context.Context, cmd *ufcli.Command) error {
+		Action: func(ctx context.Context, cmd *ufcli.Command) error {
 			text := cmd.StringArg("text")
 			if text == "" {
 				return errors.New("text argument required")
@@ -34,8 +33,8 @@ func NewCommand() *ufcli.Command {
 			}
 			defer database.Close()
 
-			store := entry.NewStore(database)
-			if insertErr := store.Insert(text); insertErr != nil {
+			store := db.NewStore(database)
+			if insertErr := store.CreateEntry(ctx, text); insertErr != nil {
 				return insertErr
 			}
 

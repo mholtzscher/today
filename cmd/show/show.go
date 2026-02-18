@@ -8,7 +8,6 @@ import (
 
 	"github.com/mholtzscher/today/internal/cli"
 	"github.com/mholtzscher/today/internal/db"
-	"github.com/mholtzscher/today/internal/entry"
 	"github.com/mholtzscher/today/internal/output"
 )
 
@@ -33,7 +32,7 @@ func NewCommand() *ufcli.Command {
 				Name: "days-arg",
 			},
 		},
-		Action: func(_ context.Context, cmd *ufcli.Command) error {
+		Action: func(ctx context.Context, cmd *ufcli.Command) error {
 			days := cmd.Int("days")
 			if days == 0 {
 				daysArg := cmd.IntArg("days-arg")
@@ -51,8 +50,8 @@ func NewCommand() *ufcli.Command {
 			}
 			defer database.Close()
 
-			store := entry.NewStore(database)
-			entries, err := store.GetByDays(days, cmd.Bool("all"))
+			store := db.NewStore(database)
+			entries, err := store.ListEntries(ctx, days, cmd.Bool("all"))
 			if err != nil {
 				return err
 			}
@@ -63,7 +62,7 @@ func NewCommand() *ufcli.Command {
 	}
 }
 
-func printEntries(entries []entry.Entry) {
+func printEntries(entries []db.Entry) {
 	if len(entries) == 0 {
 		output.Stdoutln("No entries found")
 		return
