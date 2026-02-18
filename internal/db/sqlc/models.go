@@ -2,7 +2,7 @@
 // versions:
 //   sqlc v1.30.0
 
-package db
+package sqlc
 
 import (
 	"database/sql"
@@ -11,11 +11,6 @@ import (
 type Entry struct {
 	ID         int64          `json:"id"`
 	Text       string         `json:"text"`
-	CreatedAt  string         `json:"created_at"`
-	ArchivedAt sql.NullString `json:"archived_at"`
-}
-
-type User struct {
-	ID    int64  `json:"id"`
-	Email string `json:"email"`
+	CreatedAt  sql.NullString `json:"created_at"`
+	ArchivedAt interface{}    `json:"archived_at"`
 }

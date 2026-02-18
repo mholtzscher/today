@@ -22,7 +22,7 @@ func NewCommand() *ufcli.Command {
 				Name: "text",
 			},
 		},
-		Action: func(_ context.Context, cmd *ufcli.Command) error {
+		Action: func(ctx context.Context, cmd *ufcli.Command) error {
 			text := cmd.StringArg("text")
 			if text == "" {
 				return errors.New("text argument required")
@@ -34,8 +34,9 @@ func NewCommand() *ufcli.Command {
 			}
 			defer database.Close()
 
-			store := entry.NewStore(database)
-			if insertErr := store.Insert(text); insertErr != nil {
+			store := db.NewStore(database)
+			svc := entry.NewService(store)
+			if insertErr := svc.CreateEntry(ctx, text); insertErr != nil {
 				return insertErr
 			}
 

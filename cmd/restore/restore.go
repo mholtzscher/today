@@ -20,7 +20,7 @@ func NewCommand() *ufcli.Command {
 		Arguments: []ufcli.Argument{
 			&ufcli.IntArg{Name: "id"},
 		},
-		Action: func(_ context.Context, cmd *ufcli.Command) error {
+		Action: func(ctx context.Context, cmd *ufcli.Command) error {
 			id := cmd.IntArg("id")
 			if id <= 0 {
 				return errors.New("id argument required")
@@ -32,8 +32,9 @@ func NewCommand() *ufcli.Command {
 			}
 			defer database.Close()
 
-			store := entry.NewStore(database)
-			restored, err := store.RestoreByID(int64(id))
+			store := db.NewStore(database)
+			svc := entry.NewService(store)
+			restored, err := svc.RestoreEntry(ctx, int64(id))
 			if err != nil {
 				return err
 			}
