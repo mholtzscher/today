@@ -2,6 +2,10 @@
 INSERT INTO entries (text)
 VALUES (?);
 
+-- name: CreateEntryAt :exec
+INSERT INTO entries (text, created_at)
+VALUES (?, ?);
+
 -- name: GetEntry :one
 SELECT id, text, created_at, archived_at
 FROM entries
@@ -13,13 +17,13 @@ SELECT id, text, created_at, archived_at
 FROM entries
 WHERE datetime(created_at, 'unixepoch') >= datetime('now', CAST(? AS TEXT))
 AND archived_at IS NULL
-ORDER BY created_at DESC;
+ORDER BY created_at DESC, id DESC;
 
 -- name: ListEntriesSinceAll :many
 SELECT id, text, created_at, archived_at
 FROM entries
 WHERE datetime(created_at, 'unixepoch') >= datetime('now', CAST(? AS TEXT))
-ORDER BY created_at DESC;
+ORDER BY created_at DESC, id DESC;
 
 -- name: ArchiveEntry :execrows
 UPDATE entries

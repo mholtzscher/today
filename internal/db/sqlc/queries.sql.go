@@ -33,6 +33,21 @@ func (q *Queries) CreateEntry(ctx context.Context, text string) error {
 	return err
 }
 
+const createEntryAt = `-- name: CreateEntryAt :exec
+INSERT INTO entries (text, created_at)
+VALUES (?, ?)
+`
+
+type CreateEntryAtParams struct {
+	Text      string `json:"text"`
+	CreatedAt int64  `json:"created_at"`
+}
+
+func (q *Queries) CreateEntryAt(ctx context.Context, arg CreateEntryAtParams) error {
+	_, err := q.db.ExecContext(ctx, createEntryAt, arg.Text, arg.CreatedAt)
+	return err
+}
+
 const getEntry = `-- name: GetEntry :one
 SELECT id, text, created_at, archived_at
 FROM entries
@@ -57,7 +72,7 @@ SELECT id, text, created_at, archived_at
 FROM entries
 WHERE datetime(created_at, 'unixepoch') >= datetime('now', CAST(? AS TEXT))
 AND archived_at IS NULL
-ORDER BY created_at DESC
+ORDER BY created_at DESC, id DESC
 `
 
 func (q *Queries) ListEntriesSince(ctx context.Context, dollar_1 string) ([]Entry, error) {
@@ -92,7 +107,7 @@ const listEntriesSinceAll = `-- name: ListEntriesSinceAll :many
 SELECT id, text, created_at, archived_at
 FROM entries
 WHERE datetime(created_at, 'unixepoch') >= datetime('now', CAST(? AS TEXT))
-ORDER BY created_at DESC
+ORDER BY created_at DESC, id DESC
 `
 
 func (q *Queries) ListEntriesSinceAll(ctx context.Context, dollar_1 string) ([]Entry, error) {

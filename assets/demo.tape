@@ -24,6 +24,9 @@ Sleep 500ms
 Type "today add 'Refactored the auth module'"
 Enter
 Sleep 500ms
-Type "today show"
+Type "today add --date 2026-02-19 'Shipped follow-up fixes'"
+Enter
+Sleep 500ms
+Type "today show --days 2"
 Enter
 Sleep 5s

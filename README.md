@@ -35,6 +35,9 @@ nix build
 # Add an entry
 today add "Fixed the login bug"
 
+# Add an entry for a prior day
+today add --date 2026-02-19 "Finished migration follow-up"
+
 # Show today's entries
 today show
 

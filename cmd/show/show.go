@@ -3,6 +3,7 @@ package show
 import (
 	"context"
 	"fmt"
+	"time"
 
 	ufcli "github.com/urfave/cli/v3"
 
@@ -70,7 +71,7 @@ func printEntries(entries []db.Entry) {
 
 	var currentDate string
 	for _, e := range entries {
-		date := e.CreatedAt.Format("2006-01-02")
+		date := e.CreatedAt.In(time.Local).Format("2006-01-02")
 		if date != currentDate {
 			if currentDate != "" {
 				output.Stdoutln("")
