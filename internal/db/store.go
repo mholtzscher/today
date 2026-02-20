@@ -39,6 +39,14 @@ func (s *Store) CreateEntry(ctx context.Context, text string) error {
 	return s.queries.CreateEntry(ctx, text)
 }
 
+// CreateEntryAt inserts a new entry with an explicit creation time.
+func (s *Store) CreateEntryAt(ctx context.Context, text string, createdAt time.Time) error {
+	return s.queries.CreateEntryAt(ctx, sqlc.CreateEntryAtParams{
+		Text:      text,
+		CreatedAt: createdAt.Unix(),
+	})
+}
+
 // GetEntry retrieves a single entry by ID.
 func (s *Store) GetEntry(ctx context.Context, id int64) (*Entry, error) {
 	row, err := s.queries.GetEntry(ctx, id)
