@@ -71,7 +71,6 @@
           buildInputs = [
             pkgs.go_1_25
             pkgs.gopls
-            pkgs.golangci-lint
             pkgs.gotools
             pkgs.gomod2nix
             pkgs.sqlc
@@ -88,7 +87,6 @@
         devShells.ci = pkgs.mkShell {
           buildInputs = [
             pkgs.go_1_25
-            pkgs.golangci-lint
             pkgs.sqlc
             pkgs.just
           ]
