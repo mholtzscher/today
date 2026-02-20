@@ -9,6 +9,11 @@ default:
 build:
     go build
 
+# Regenerate demo GIF from VHS tape
+demo:
+    just build
+    nix run nixpkgs#vhs -- assets/demo.tape
+
 # Build the binary (release, stripped)
 build-release:
     go build -ldflags="-s -w"
