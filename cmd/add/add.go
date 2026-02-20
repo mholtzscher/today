@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	ufcli "github.com/urfave/cli/v3"
@@ -15,22 +16,18 @@ import (
 
 func NewCommand() *ufcli.Command {
 	return &ufcli.Command{
-		Name:    "add",
-		Usage:   "Add a new entry",
-		Aliases: []string{"i", "a"},
+		Name:      "add",
+		Usage:     "Add a new entry",
+		ArgsUsage: "<text...>",
+		Aliases:   []string{"i", "a"},
 		Flags: []ufcli.Flag{
 			&ufcli.StringFlag{
 				Name:  "date",
 				Usage: "Set entry date (YYYY-MM-DD, past only)",
 			},
 		},
-		Arguments: []ufcli.Argument{
-			&ufcli.StringArg{
-				Name: "text",
-			},
-		},
 		Action: func(ctx context.Context, cmd *ufcli.Command) error {
-			text := cmd.StringArg("text")
+			text := strings.TrimSpace(strings.Join(cmd.Args().Slice(), " "))
 			if text == "" {
 				return errors.New("text argument required")
 			}
