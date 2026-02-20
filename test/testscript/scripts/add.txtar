@@ -2,3 +2,12 @@
 today add 'Test entry'
 stdout 'Added entry'
 ! stderr .
+
+# Multi-word text should preserve full value
+today add Added entry with spaces
+stdout 'Added entry'
+! stderr .
+
+today show
+stdout '#2 Added entry with spaces'
+! stderr .

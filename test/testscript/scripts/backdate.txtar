@@ -1,12 +1,12 @@
 # Test add --date command
 
-today add --date 2000-01-01 Backdated entry with spaces
+today add --date 2000-01-01 'Backdated entry'
 stdout 'Added entry'
 ! stderr .
 
 today show --days 20000
 stdout '=== 2000-01-01 ==='
-stdout '#1 Backdated entry with spaces'
+stdout '#1 Backdated entry'
 
 ! today add --date 2999-01-01 'Future entry'
 stderr 'date must be in the past'
