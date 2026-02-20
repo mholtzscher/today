@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6](https://github.com/mholtzscher/today/compare/v0.1.5...v0.1.6) (2026-02-20)
+
+
+### Features
+
+* **add:** support backdated entries and local date grouping ([#12](https://github.com/mholtzscher/today/issues/12)) ([8f7cf04](https://github.com/mholtzscher/today/commit/8f7cf048e17379bec28c5fee79427a8960ac6845))
+* **entry:** add archive and restore flow ([#9](https://github.com/mholtzscher/today/issues/9)) ([e618660](https://github.com/mholtzscher/today/commit/e618660d00af32e87020eca5b69a910ded901ebb))
+
 ## [0.1.5](https://github.com/mholtzscher/today/compare/v0.1.4...v0.1.5) (2026-02-16)
 
 
