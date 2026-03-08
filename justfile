@@ -55,7 +55,7 @@ generate:
     sqlc generate
 
 # Run all checks (generate, format, vet, lint, test, tidy, gomod2nix)
-check: generate fmt vet lint test tidy gomod2nix
+check: tidy gomod2nix generate fmt vet lint test 
 
 # Update Go dependencies
 update-deps:
