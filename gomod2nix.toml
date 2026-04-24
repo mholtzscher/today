@@ -850,8 +850,8 @@ schema = 3
     hash = 'sha256-NR+ZSeQKbfVP4Cu/SlNIivMa+c1OMyOSMxLSjX+LZJI='
 
   [mod.'golang.org/x/sync']
-    version = 'v0.19.0'
-    hash = 'sha256-RbRZ+sKZUurOczGhhzOoY/sojTlta3H9XjL4PXX/cno='
+    version = 'v0.20.0'
+    hash = 'sha256-ybcjhCfK6lroUM0yswUvWooW8MOQZBXyiSqoxG6Uy0Y='
 
   [mod.'golang.org/x/sys']
     version = 'v0.42.0'
@@ -890,8 +890,8 @@ schema = 3
     hash = 'sha256-K3Yt3O/obBerNwnW0HKY9/pf+t9lZp8u5MzKDvyjv1o='
 
   [mod.'modernc.org/libc']
-    version = 'v1.70.0'
-    hash = 'sha256-jP2312b4+hMAuIbf1BsF6FHq/aIyZ2w7oQjjYBwhKRQ='
+    version = 'v1.72.0'
+    hash = 'sha256-zSEseN4jKs+HDQ7NuqgjvnApeBxswsNpaxW5heHVQVk='
 
   [mod.'modernc.org/mathutil']
     version = 'v1.7.1'
@@ -902,8 +902,8 @@ schema = 3
     hash = 'sha256-MkybF8vvrxXS5j7O8w3skwTo0aMo1yjWS0K440rYcHM='
 
   [mod.'modernc.org/sqlite']
-    version = 'v1.47.0'
-    hash = 'sha256-ySIF66EiwrPswp2cZ0fJy6I+8bvmg0TwhS8nqaY8d+U='
+    version = 'v1.49.1'
+    hash = 'sha256-xIuF1LDRIF3U+oQ95X74cbhylj001eu2Hl+cqr0T1OM='
 
   [mod.'mvdan.cc/gofumpt']
     version = 'v0.9.2'
