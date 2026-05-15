@@ -778,8 +778,8 @@ schema = 3
     hash = 'sha256-m56XF350CsHgKsbCTQ0Q1Joz2/a+S4+fnkMCx2upJ4Q='
 
   [mod.'github.com/urfave/cli/v3']
-    version = 'v3.8.0'
-    hash = 'sha256-mLBHZBcxBiuBcQg2A2nYHMrr8muLBuIQMAIZh6ZuJfw='
+    version = 'v3.9.0'
+    hash = 'sha256-G7F0o+VGex6fg68e9VH7EqvtSRRm5TZepZlhHWtPVP0='
 
   [mod.'github.com/uudashr/gocognit']
     version = 'v1.2.0'
@@ -890,8 +890,8 @@ schema = 3
     hash = 'sha256-K3Yt3O/obBerNwnW0HKY9/pf+t9lZp8u5MzKDvyjv1o='
 
   [mod.'modernc.org/libc']
-    version = 'v1.72.1'
-    hash = 'sha256-yTFvKWFOdFCoYFpiD448xpSJggIv9WC+3ZLvbEAD0Rc='
+    version = 'v1.72.3'
+    hash = 'sha256-eOCoqSnX/VzpG63nh1j3JpXRndnZZcn2cDTeutexXAI='
 
   [mod.'modernc.org/mathutil']
     version = 'v1.7.1'
@@ -902,8 +902,8 @@ schema = 3
     hash = 'sha256-MkybF8vvrxXS5j7O8w3skwTo0aMo1yjWS0K440rYcHM='
 
   [mod.'modernc.org/sqlite']
-    version = 'v1.50.0'
-    hash = 'sha256-+iAw7iV+/XeEbA95zw0odwgQfWT4TPfpufMKmElW3+U='
+    version = 'v1.50.1'
+    hash = 'sha256-JbGP3eerH/6mgzI0aq9SpLLwe6ld6PV/zJReG8mLQN0='
 
   [mod.'mvdan.cc/gofumpt']
     version = 'v0.9.2'
