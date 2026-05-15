@@ -6,8 +6,8 @@ require (
 	github.com/pressly/goose/v3 v3.27.1
 	github.com/pterm/pterm v0.12.83
 	github.com/rogpeppe/go-internal v1.14.1
-	github.com/urfave/cli/v3 v3.8.0
-	modernc.org/sqlite v1.50.0
+	github.com/urfave/cli/v3 v3.9.0
+	modernc.org/sqlite v1.50.1
 )
 
 require (
@@ -229,7 +229,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/tools v0.7.0 // indirect
-	modernc.org/libc v1.72.1 // indirect
+	modernc.org/libc v1.72.3 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 	mvdan.cc/gofumpt v0.9.2 // indirect
