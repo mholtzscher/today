@@ -6,8 +6,8 @@ require (
 	github.com/pressly/goose/v3 v3.27.1
 	github.com/pterm/pterm v0.12.83
 	github.com/rogpeppe/go-internal v1.15.0
-	github.com/urfave/cli/v3 v3.9.0
-	modernc.org/sqlite v1.51.0
+	github.com/urfave/cli/v3 v3.9.1
+	modernc.org/sqlite v1.52.0
 )
 
 require (
