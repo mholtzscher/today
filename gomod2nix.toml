@@ -778,8 +778,8 @@ schema = 3
     hash = 'sha256-m56XF350CsHgKsbCTQ0Q1Joz2/a+S4+fnkMCx2upJ4Q='
 
   [mod.'github.com/urfave/cli/v3']
-    version = 'v3.9.1'
-    hash = 'sha256-1aASQm18iCAiCKrkts6Cp/KDjr/GeyRENfqFhaZuF98='
+    version = 'v3.10.0'
+    hash = 'sha256-hcyKki7xpLysts5QLE2Ph/83efgoNlh8jaCTaobpWG4='
 
   [mod.'github.com/uudashr/gocognit']
     version = 'v1.2.0'
@@ -846,16 +846,16 @@ schema = 3
     hash = 'sha256-H92+0L1kY6OHen1YctecROkC2/a/tLx7oWan/XaInA0='
 
   [mod.'golang.org/x/mod']
-    version = 'v0.34.0'
-    hash = 'sha256-BJgLn+wh9s/XyS2LDmnXTj4ooR+r0Ew2SlxvJA+6GCs='
+    version = 'v0.36.0'
+    hash = 'sha256-ZhyOvy9ptbV+pna/CNyQFr5cKRn5O+B2QzkQAISKgco='
 
   [mod.'golang.org/x/sync']
     version = 'v0.20.0'
     hash = 'sha256-ybcjhCfK6lroUM0yswUvWooW8MOQZBXyiSqoxG6Uy0Y='
 
   [mod.'golang.org/x/sys']
-    version = 'v0.43.0'
-    hash = 'sha256-aDQXqSTZES2l/132PBxhZN4ywldpPyfm7LByYCHzzwM='
+    version = 'v0.44.0'
+    hash = 'sha256-JDlj+PKsG6I6kjv5JyOUNreY51u5An0oZ5OZMHZSk+A='
 
   [mod.'golang.org/x/term']
     version = 'v0.40.0'
@@ -866,8 +866,8 @@ schema = 3
     hash = 'sha256-/0t9C6Mc8kYjxweFB0us2lGKo8GovHhBiq5nlMOppC0='
 
   [mod.'golang.org/x/tools']
-    version = 'v0.43.0'
-    hash = 'sha256-CqwqQl9inMT0/5LJ8hmV3HNR1XdI/xBFbi3305VJUlo='
+    version = 'v0.45.0'
+    hash = 'sha256-fKsYC186cbOCJROZGUqU6UMSxvK2DZ44hlCEytLvp5c='
 
   [mod.'google.golang.org/protobuf']
     version = 'v1.36.11'
@@ -890,8 +890,8 @@ schema = 3
     hash = 'sha256-K3Yt3O/obBerNwnW0HKY9/pf+t9lZp8u5MzKDvyjv1o='
 
   [mod.'modernc.org/libc']
-    version = 'v1.72.3'
-    hash = 'sha256-eOCoqSnX/VzpG63nh1j3JpXRndnZZcn2cDTeutexXAI='
+    version = 'v1.73.4'
+    hash = 'sha256-YN3m9MDZ2GRZznT5ErWZJdap+E5xOwOyKlZ/ixyGT+0='
 
   [mod.'modernc.org/mathutil']
     version = 'v1.7.1'
@@ -902,8 +902,8 @@ schema = 3
     hash = 'sha256-MkybF8vvrxXS5j7O8w3skwTo0aMo1yjWS0K440rYcHM='
 
   [mod.'modernc.org/sqlite']
-    version = 'v1.52.0'
-    hash = 'sha256-Y3TfO3AKxTIE2p00llUdXf8p9X5uw+EpSrwCAtO3Dyc='
+    version = 'v1.53.0'
+    hash = 'sha256-G8pXCpu2jJlPxd+7p1vQd8GzWGCTnKQug58fnQzTVRY='
 
   [mod.'mvdan.cc/gofumpt']
     version = 'v0.9.2'
