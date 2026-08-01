@@ -7,7 +7,7 @@ require (
 	github.com/pterm/pterm v0.12.83
 	github.com/rogpeppe/go-internal v1.15.0
 	github.com/urfave/cli/v3 v3.10.1
-	modernc.org/sqlite v1.54.0
+	modernc.org/sqlite v1.55.0
 )
 
 require (
