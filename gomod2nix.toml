@@ -530,8 +530,8 @@ schema = 3
     hash = 'sha256-JC60PjKj7MvhZmUHTZ9p372FV72I9Mxvli3fivTbxuA='
 
   [mod.'github.com/mattn/go-isatty']
-    version = 'v0.0.23'
-    hash = 'sha256-CbvLefXb6HYNFEsPyLDGj5jhnYwXNNC4aOM2oJsGhnk='
+    version = 'v0.0.24'
+    hash = 'sha256-pmq8KKIb2+qMF3E1cR2B7NAj5joF2tZduyXjIfIlkTk='
 
   [mod.'github.com/mattn/go-runewidth']
     version = 'v0.0.20'
@@ -654,8 +654,8 @@ schema = 3
     hash = 'sha256-rDcdNYH6ZD8KouyyiZCUEy8JrjOQoAkxHBhugrfHjFo='
 
   [mod.'github.com/rogpeppe/go-internal']
-    version = 'v1.15.0'
-    hash = 'sha256-ZZ2PcP8AzQqkCApO0/qaw5ufqqV/00sxaNnPI7b3qZo='
+    version = 'v1.16.0'
+    hash = 'sha256-taz3iAUJayomgTV637S27ZkI4VD7ulkOVdMj68woTxE='
 
   [mod.'github.com/ryancurrah/gomodguard']
     version = 'v1.4.1'
@@ -890,8 +890,8 @@ schema = 3
     hash = 'sha256-K3Yt3O/obBerNwnW0HKY9/pf+t9lZp8u5MzKDvyjv1o='
 
   [mod.'modernc.org/libc']
-    version = 'v1.74.3'
-    hash = 'sha256-aWSAtyc9RotOrcZtc5bqUSqksvgVIKfkppWsgtvPysk='
+    version = 'v1.74.4'
+    hash = 'sha256-DcxhQA8poGw638ZHuBaEvpiyi0/K/B57ge/YhzyfJxs='
 
   [mod.'modernc.org/mathutil']
     version = 'v1.7.1'
@@ -902,8 +902,8 @@ schema = 3
     hash = 'sha256-MkybF8vvrxXS5j7O8w3skwTo0aMo1yjWS0K440rYcHM='
 
   [mod.'modernc.org/sqlite']
-    version = 'v1.55.0'
-    hash = 'sha256-6xIYdhajrw3uYZ/Gopbr6U9JkqImuFmnrR33flB2pO0='
+    version = 'v1.56.0'
+    hash = 'sha256-dm+ehuPSqdZ4k+PNPnhj7YaXk2nVAx2sdQi9/UpVUuA='
 
   [mod.'mvdan.cc/gofumpt']
     version = 'v0.9.2'
